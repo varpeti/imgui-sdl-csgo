@@ -14,7 +14,7 @@ extern "C" void SDL_GL_SwapWindow(SDL_Window* window) {
 	static void (*oSDL_GL_SwapWindow) (SDL_Window*) = GetNextFunction<void(*)(SDL_Window*)>("./bin/linux64/libSDL2-2.0.so.0", "SDL_GL_SwapWindow");
 	
 	// Store OpenGL contexts.
-	static SDL_GLContext original_context = SDL_GL_GetCurrentContext();;
+	static SDL_GLContext original_context = SDL_GL_GetCurrentContext();
 	static SDL_GLContext user_context = NULL;
 	
 	// Perform first-time initialization.
