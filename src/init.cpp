@@ -18,13 +18,9 @@ extern "C" void SDL_GL_SwapWindow(SDL_Window* window) {
 	static SDL_GLContext user_context = NULL;
 	
 	// Perform first-time initialization.
-	static bool context_created = false;
-
-	if (!context_created) {
+	if (!user_context) {
 		// Create a new context for our rendering.
 		user_context = SDL_GL_CreateContext(window);
-		context_created = true;
-
 		ImGui_ImplSdl_Init(window);
 	}
 
