@@ -1,3 +1,5 @@
+![imgui demo in Counter-Strike: Global Offensive on Linux](https://cdn.aixxe.net/projects/imgui-sdl-csgo/demo-ui-example.png)
+
 # imgui-sdl-csgo
 
 Implements the [imgui](https://github.com/ocornut/imgui) graphical user interface by hijacking the `SDL_GL_SwapWindow` symbol. This repository specifically targets Counter-Strike: Global Offensive but should work in other games that use SDL with minor changes.
