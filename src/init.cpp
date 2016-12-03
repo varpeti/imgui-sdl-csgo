@@ -3,15 +3,10 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_sdl.h"
 
-// Helper function to get address of a symbol from a shared library.
-template <typename T> inline T GetNextFunction(const char* filename, const char* symbol) {
-	return reinterpret_cast<T>(dlsym(dlopen(filename, RTLD_NOW), symbol));
-}
-
 // Overwrite the SDL_GL_SwapWindow symbol.
 extern "C" void SDL_GL_SwapWindow(SDL_Window* window) {
 	// Get the original 'SDL_GL_SwapWindow' symbol from 'libSDL2-2.0.so.0'.
-	static void (*oSDL_GL_SwapWindow) (SDL_Window*) = GetNextFunction<void(*)(SDL_Window*)>("./bin/linux64/libSDL2-2.0.so.0", "SDL_GL_SwapWindow");
+	static void (*oSDL_GL_SwapWindow) (SDL_Window*) = reinterpret_cast<void(*)(SDL_Window*)>(dlsym(RTLD_NEXT, "SDL_GL_SwapWindow"));
 	
 	// Store OpenGL contexts.
 	static SDL_GLContext original_context = SDL_GL_GetCurrentContext();
