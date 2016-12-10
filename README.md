@@ -9,11 +9,22 @@ Implements the [imgui](https://github.com/ocornut/imgui) graphical user interfac
 Special thanks to [SirBarclay](https://github.com/SirBarclay) who provided a [working example](https://github.com/SirBarclay/meh/blob/master/test.cpp) of OpenGL drawing based on [my initial hooking](https://www.unknowncheats.me/forum/1591704-post2.html) code.
 
 ## Usage
+
+### Injecting
+
+If using the [runtime](https://github.com/aixxe/imgui-sdl-csgo/tree/runtime) branch, compile and load with any injection method. See my [blog post](https://aixxe.net/2016/09/shared-library-injection) for some options.
+
+### Preloading
+
 Compile with `make` then preload the output library into the game.
+
+You will also need the appropriate SDL2 library for the specified architecture.
 
 ```
 LD_PRELOAD=/home/aixxe/libsdl-imgui.so ./csgo.sh
 ```
+
+If you are targeting a 32-bit game make sure to change `-m64` to `-m32` in the Makefile.
 
 ```
 LD_PRELOAD=/home/aixxe/libsdl-imgui.so ./hl2.sh -game tf
@@ -23,11 +34,14 @@ LD_PRELOAD=/home/aixxe/libsdl-imgui.so ./hl2.sh -game tf
 LD_PRELOAD=/home/aixxe/libsdl-imgui.so ./hl2.sh -game cstrike
 ```
 
-If you are targeting a 32-bit game make sure to change `-m64` to `-m32` in the Makefile.
+## Handling input
 
-You will also need the appropriate SDL2 library for the specified architecture.
+Simply add the following code to the replacement `SDL_GL_SwapWindow` function.
 
-## Known issues
+```
+SDL_Event event;
 
-* Keyboard inputs not currently working in Source games.
-* Mouse input is sometimes erratic.
+while (SDL_PollEvent(&event)) {
+	ImGui_ImplSdl_ProcessEvent(&event);
+}
+```
