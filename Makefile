@@ -1,10 +1,11 @@
 CXX = g++
-CXXFLAGS = -std=c++14 -m64 -fPIC
+CXXFLAGS = -std=c++14 -m64 -fPIC -I./include
 LDFLAGS = -shared -ldl -lSDL2 -m64
 
-SOURCES=$(shell find src -type f -iname '*.cpp')
+SOURCES=$(shell find src/$(TYPE) include/ -type f -iname '*.cpp')
 OBJECTS=$(SOURCES:.cpp=.o)
 
+TYPE = preload
 OUT := libsdl-imgui.so
 
 all: build

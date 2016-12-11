@@ -12,11 +12,15 @@ Special thanks to [SirBarclay](https://github.com/SirBarclay) who provided a [wo
 
 ### Injecting
 
-If using the [runtime](https://github.com/aixxe/imgui-sdl-csgo/tree/runtime) branch, compile and load with any injection method. See my [blog post](https://aixxe.net/2016/09/shared-library-injection) for some options.
+Compile with `make TYPE=runtime` and load with any injection method.
+
+**This method is unlikely to work on other Source games.**
+
+See my [blog post](https://aixxe.net/2016/09/shared-library-injection) for some options.
 
 ### Preloading
 
-Compile with `make` then preload the output library into the game.
+Compile with `make TYPE=preload` then preload the output library into the game.
 
 You will also need the appropriate SDL2 library for the specified architecture.
 

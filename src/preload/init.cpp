@@ -25,7 +25,7 @@ extern "C" void SDL_GL_SwapWindow(SDL_Window* window) {
 	// Perform UI rendering.
 	ImGui_ImplSdl_NewFrame(window);
 
-	ImGui::ShowTestWindow();
+	ImGui::Text("Hello, world!");
 	ImGui::Render();
 
 	// Swap back to the game context.
