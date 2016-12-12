@@ -4,31 +4,31 @@
 
 # imgui-sdl-csgo
 
-Implements the [imgui](https://github.com/ocornut/imgui) graphical user interface by hijacking the `SDL_GL_SwapWindow` symbol. This repository will eventually target Counter-Strike: Global Offensive specfically, but is just as capable of working in other games that use SDL2.
+Implements the [imgui](https://github.com/ocornut/imgui) graphical user interface by hijacking the `SDL_GL_SwapWindow` symbol. Nothing really specific for Counter-Strike: Global Offensive any more but changing the repository name now is a pain.
 
 Special thanks to [SirBarclay](https://github.com/SirBarclay) who provided a [working example](https://github.com/SirBarclay/meh/blob/master/test.cpp) of OpenGL drawing based on [my initial hooking](https://www.unknowncheats.me/forum/1591704-post2.html) code.
 
 ## Usage
 
+You will need the appropriate SDL2 library for the specified architecture.
+
 ### Injecting
 
-Compile with `make TYPE=runtime` and load with any injection method.
+See my [blog post](https://aixxe.net/2016/09/shared-library-injection) for some loading options.
 
-**This method is unlikely to work on other Source games.**
+#### 32-bit
 
-See my [blog post](https://aixxe.net/2016/09/shared-library-injection) for some options.
+Compile with `make x86 TYPE=runtime-x86` and load with any injection method.
+
+#### 64-bit
+
+Compile with `make x64 TYPE=runtime-x64` and load with any injection method.
 
 ### Preloading
 
-Compile with `make TYPE=preload` then preload the output library into the game.
+### 32-bit
 
-You will also need the appropriate SDL2 library for the specified architecture.
-
-```
-LD_PRELOAD=/home/aixxe/libsdl-imgui.so ./csgo.sh
-```
-
-If you are targeting a 32-bit game make sure to change `-m64` to `-m32` in the Makefile.
+Compile with `make x86 TYPE=preload` and launch.
 
 ```
 LD_PRELOAD=/home/aixxe/libsdl-imgui.so ./hl2.sh -game tf
@@ -38,14 +38,10 @@ LD_PRELOAD=/home/aixxe/libsdl-imgui.so ./hl2.sh -game tf
 LD_PRELOAD=/home/aixxe/libsdl-imgui.so ./hl2.sh -game cstrike
 ```
 
-## Handling input
+### 64-bit
 
-Simply add the following code to the replacement `SDL_GL_SwapWindow` function.
+Compile with `make x64 TYPE=preload` and launch.
 
 ```
-SDL_Event event;
-
-while (SDL_PollEvent(&event)) {
-	ImGui_ImplSdl_ProcessEvent(&event);
-}
+LD_PRELOAD=/home/aixxe/libsdl-imgui.so ./csgo.sh
 ```
